@@ -2,12 +2,15 @@ import pandas as pd
 import requests
 
 # Configuración de Shopify
-API_TOKEN = "REDACTED"  # Admin API Access Token
+API_TOKEN = os.getenv("SHOPIFY_API_TOKEN")  # Obtenido desde la variable de entorno
+if not API_TOKEN:
+    raise ValueError("Shopify API Token no encontrado en las variables de entorno.")
+
 SHOP_NAME = "28b3fe-e1.myshopify.com"  # Subdominio correcto de tu tienda
 API_VERSION = "2025-01"  # Versión de la API
 
 # Tasa fija de conversión USD a COP
-USD_TO_COP_RATE = 4000  # Cambia esta tasa según el tipo de cambio actual
+USD_TO_COP_RATE = 4600  # Cambia esta tasa según el tipo de cambio actual
 
 # Función para calcular el precio ajustado
 def calcular_precio(base_price_usd, tax_rate=0.10, shipping_cost=100000, profit_margin=0.35):
